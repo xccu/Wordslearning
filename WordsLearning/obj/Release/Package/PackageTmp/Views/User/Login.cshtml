@@ -1,0 +1,121 @@
+﻿@{
+    ViewBag.Title = "Login";
+    Layout = "";
+    var rootPath = Url.Content("~");
+}
+<body>
+    <head>    
+    <link href="@Url.Content("~/Styles/flora.datepicker.css")" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" href="@Url.Content("~/Styles/lanrenzhijia.css")" />
+    <script src="@Url.Content("~/Scripts/jquery-1.7.1.min.js")" type="text/javascript"> </script>
+     <script src="@Url.Content("~/Scripts/jquery.validate.js")" type="text/javascript"> </script>
+    </head>
+<div style="width:200px;height:200px"></div>
+<div style="text-align:center;">
+    <div style="width:500px;height:270px;" id="page">
+        <div style="background-color:#2d2d30;width:500px;height:30px">
+            <div class="logo" style="margin-top:0px"></div>
+            <div class="headfont">Login</div>
+        </div>
+        <div style="width:500px;height:1px;background-color:#007acc">
+        <form id="form" method="post">
+            <table>
+                <tr style="height:50px">
+                    <td colspan="2" style="text-align:center">
+                        <label id="Failed" class="error" >Login Failed</label>
+                    </td>
+                </tr>
+                <tr>
+                    <td style="width:180px">Name:</td>
+                    <td style="width:300px;text-align:left">
+                        <input type="text" id="Name" name="Name">
+                        <label class="error" id="Uerror">Please input UserName</label>
+                    </td>
+                    </tr>
+                    <tr style="height:50px">                                  
+                    <td style="width:180px">Password:</td>
+                    <td style="width:300px;text-align:left">
+                        <input type="password" id="Password" name="Password">
+                        <label class="error" id="Perror">Please input Password</label>
+                    </td>
+                    </tr>
+                                <tr>                                 
+                    <td></td>
+                    <td> <div style="margin-right:130px"><input type="Button" class="Inputbtn" value="Login"  onclick="Login()">   <input style="width:57px;" type="button" class="Inputbtn" value="Register" onclick="    GotoRegister()"></div></td>
+                    </tr>
+                </table>
+        </form>
+    </div></div>
+<div style="width:300px; height:300px"></div>
+
+    <script type="text/ecmascript">
+        //$(document).ready(function () {
+        //    $("#form").validate({
+        //        rules: {
+        //            Name: {
+        //                required: true,
+        //            },
+        //            Password: {
+        //                required: true,
+        //            }
+        //        },
+
+        //        messages: {
+        //            Name: {
+        //                required: 'Please input name',
+        //            },
+        //            Password: {
+        //                required: 'Please input password',
+        //            },
+        //        },
+        //    })
+        //})
+        $(document).ready(function () {
+            $("#Uerror").hide();
+            $("#Perror").hide();
+            $("#Failed").hide();
+
+        })
+        function Login() {
+            Name = $("#Name").val();
+            Password = $("#Password").val();
+            url = "@ViewBag.ReturnUrl";
+            if (Name != "" && Password != "") {
+                $.post("/User/Login", { name: Name, password: Password }, function (data) {
+                    if (data.IsSuccess) {
+                        if (url == "") {
+                            window.location = '@(rootPath)Words/WordsList';
+                        }
+                        else {                         
+                            window.location = url;
+                        }
+                    }
+                    else {
+                        $("#Failed").html(data.ErrorMessage)
+                        $("#Failed").show();
+                    }
+                })
+            }
+            else {
+                if (Name == "")
+                    $("#Uerror").show();
+                if (Password == "")
+                    $("#Perror").show();
+            }
+        }
+
+        $("#Name").focus(function () {
+            $("#Uerror").hide();
+            $("#Failed").hide();
+        })
+
+        $("#Password").focus(function () {
+            $("#Perror").hide();
+            $("#Failed").hide();
+        })
+
+        function GotoRegister() {
+            window.location = "@(rootPath)User/Register";
+        }
+        </script>
+    </body>

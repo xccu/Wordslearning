@@ -1,0 +1,118 @@
+﻿@model IEnumerable<WordsLearning.Models.WordInfo>
+@{
+    ViewBag.Title = "SpellTest";
+    var rootPath = Url.Content("~");
+    int i = 0;
+}
+<style>
+.tinytable th {
+    background: #007acc;
+    color: #FFFFFF;
+    height: 23px;
+    margin:0px;
+}
+
+    .panel {
+        width:800px; 
+        vertical-align:bottom; 
+        margin: 0 auto; 
+        font-size:14px;
+        margin-top:100px;
+    }
+    </style>
+ <div class="subtitle">  
+     <h1>Spell Test</h1> 
+ </div>
+<div style="width:1006px;">
+     <div  class="panel">Finished:@ViewBag.finished &nbsp;Rate:@ViewBag.rate%</div>
+<div id="testarea">
+    <div>
+<form>
+        <input type="hidden" id="enhanced" value="@ViewBag.enhanced">
+ <table>  
+      <thead>
+        <tr>           
+            <th>
+            </th>
+            <th>
+            </th>
+            <th class="answerth">Answer
+            </th>
+        </tr>
+                      </thead>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td style="text-align:center; width:460px; height:35px;font-size:12px;">
+                    @item.translate
+                </td>
+                <td style="width:120px;height:35px; text-align:center;">
+                    <input type="text" name="Spell(@i)" style="width:100px">
+                </td>
+                <td class="answertd" style="text-align:center; width:240px; height:35px; font-size:14px;">
+                    <span style="display:none" name="showanswer">@item.spell
+                    </span> 
+                    <input type="hidden" name="Answer(@i)" value="@item.spell"> 
+                    <input type="hidden" name="Ids(@i)" value="@item.Id">                 
+                </td>
+            </tr>
+            i++;
+        }
+     <tr>
+         <td colspan="2" style="text-align:center"> <input type="button" name="enhance" style="visibility:hidden; width:57px;" value="Enhance" class="Inputbtn" onclick="enhancement()"/></td>
+         <td class="answertd" style="text-align:center; height:35px;border-left:1px solid #ff6a00; background-color:#1e1e1e">
+             <input type="button" value="Submit" class="Inputbtn" onclick="submitanswer()"/>
+             <input type="button" value="Next" class="Inputbtn" onclick="next()"/>
+         </td>
+     </tr>
+    </table>   
+         </form>
+        </div>
+    </div>
+    </div>
+<script type="text/javascript">
+    fanswer = "";
+    fid = "";
+    function submitanswer()
+    {
+        Ask = "";
+        Answer = "";
+        Ids = "";
+        enhanced = $("#enhanced").val();
+        for (t = 0; t < 10; t++) {
+            Ask += $("input[name=Spell(" + t + ")]").val() + "/";
+            Answer += $("input[name=Answer(" + t + ")]").val() + "/";
+            Ids += $("input[name=Ids(" + t + ")]").val() + "/";
+        }
+        $.post("/Words/CheckAnswer/", { Ask: Ask, Answer: Answer, Ids: Ids, Test: 0, Enhanced: enhanced }, function (data) {
+            fanswer = data.fanswer;
+            fid = data.fid;
+            showanswer(fanswer);
+        })
+    }
+
+    function enhancement() {
+        window.location = '@(rootPath)Words/Enhance?fid=' + fid + '$0';
+    }
+
+    function next() {
+        window.location = '@(rootPath)Words/SpellTest';
+    }
+
+    function showanswer(fanswer)
+    {
+        falselist = fanswer.split('/');
+        for (i = 0; i < 10; i++) {
+            $("input[name=Spell(" + i + ")]").css({ "color": "#4EC9B0" });
+            $("input[name=Spell(" + i + ")]").attr("readonly","readonly");
+        }
+
+        //设置字体颜色   
+        for (i = 0; i < falselist.length-1;i++)
+        $("input[name=Spell(" + falselist[i] + ")]").css({ "color": "#D69D85" });
+        $("span[name='showanswer']").css({ "display": "block" });
+
+        if (falselist.length > 1)
+            $("input[name='enhance']").css({ "visibility": "visible" });
+    }
+    </script>

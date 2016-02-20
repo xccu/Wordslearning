@@ -1,0 +1,134 @@
+﻿@model  IEnumerable<WordsLearning.Models.ReadingInfo>
+@{
+    ViewBag.Title = "Reading";
+    var PageList = (List<int>)ViewBag.PageList;
+}
+
+<style>
+    #table {
+        margin-top:5px;
+        width:990px;
+    }
+
+    #table th {
+        display:none;
+    }
+
+    .panel {
+        width:999px; 
+        height:21px; 
+        float:right; 
+        margin-top:10px;
+    }
+</style>
+<div class="subtitle">  
+    <h1>Reading</h1> 
+</div>
+<table id="table">
+     <thead>
+        <tr>
+            <th></th>
+            <th></th>
+        </tr>
+    </thead>
+                @foreach (var item in Model)
+            {
+                <tr>
+                    <td>             
+                        <div style="width:800px;padding-left:5px">
+                            @Html.ActionLink(item.Title, "ReadingDetail", new { Id = item.Id })
+                        </div>
+                    </td>
+                    <td style="text-align:right">
+                        @item.Date
+                        </td>
+                </tr>
+            }
+    </table>
+@*                <div id="tablefooter" style="width:1002px;">
+          <div id="tablenav">
+            	<div>                 
+                    <img src="../../Content/themes/base/images/first.png" width="16" height="16" id="first" alt="First Page" onclick="sorter.move(-1,true);" />
+                    <img src="../../Content/themes/base/images/previous.png" width="16" height="16" id="previous" alt="First Page" onclick="sorter.move(-1);" />
+                    <img src="../../Content/themes/base/images/next.png" width="16" height="16" id="next" alt="First Page" onclick="sorter.move(1);" />
+                    <img src="../../Content/themes/base/images/last.png" width="16" height="16" id="last" alt="Last Page" onclick="sorter.move(1,true);" />
+                </div>
+                <div>
+                	<select id="pagedropdown" style="width:50px; background-color:#333334"></select>                      
+				</div>               
+            </div>
+			<div id="tablelocation">
+            	<div>
+                    <a id="btn_select">
+                </div>
+                <div class="page" style="color:#c8c8c8;">Page:<span id="currentpage"></span>&nbspTotal:<span id="totalpages"></span></div>
+            </div>
+        </div>*@
+        <div id="tablefooter" style="width:1002px;">
+          <div id="tablenav">
+                <input type="hidden" id="CurrentPage" value="@ViewBag.CurrentPage">
+            	<div>                
+                    <div class="first" title="First Page" onclick="firstPage();"></div>
+                    <div class="previous" title="previous" onclick="previouPage(@ViewBag.CurrentPage);"></div>
+                    <div class="next" title="Next Page" onclick="nextPage(@ViewBag.CurrentPage);" ></div>
+                    <div class="last" title="Last Page" onclick="lastPage();"></div>
+                </div>               
+                <div style="margin-left:10px">
+                	<select id="pagedropdown" style="width:50px; background-color:#333334;margin-bottom:2px;" onmouseup="autoRowSpan(table, 0,0)" onchange="skipPage(this)">
+                        @foreach (var item in PageList)
+                        {
+                            <option value="@item">@item</option> 
+                        }
+                	</select>                      
+				</div>               
+            </div>
+			<div id="tablelocation">
+                <div>Page:<span>@ViewBag.CurrentPage</span>&nbspTotal:<span id="totalpages">@PageList.Count()</span></div>
+            </div>
+        </div>
+
+
+<script type="text/javascript">
+
+    $(document).ready(function () {
+        setDropdownlist("CurrentPage", "pagedropdown");
+
+    });
+
+    function skipPage(obj) {
+        Index = $(obj).val();
+        skip(Index);
+    }
+
+    function lastPage() {
+        Index = "@PageList.LastOrDefault()";
+            skip(Index);
+        }
+
+        function firstPage() {
+            skip(1);
+        }
+
+        function nextPage() {
+            Index = "@ViewBag.CurrentPage" == "@PageList.Count()" ? "@ViewBag.CurrentPage" :@ViewBag.CurrentPage +1;
+                    skip(Index);
+                }
+
+                function previouPage() {
+                    Index = "@ViewBag.CurrentPage" == "1" ? "1" :@ViewBag.CurrentPage -1;
+                    skip(Index);
+                }
+
+                function skip(Index) {
+                    $.post("/Media/PageSkip", { Index: Index, PageSize: 20 }
+                        , function (data) {
+                            if (data.IsSuccess) {
+                                location.reload();
+                            }
+                            else {
+                                alert("Skip failed");
+                                location.reload();
+                            }
+                        })
+                }
+    </script>

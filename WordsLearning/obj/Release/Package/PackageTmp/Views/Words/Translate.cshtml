@@ -1,0 +1,55 @@
+﻿@model WordsLearning.Models.TransInfo
+@{
+    ViewBag.Title = "Translate";
+}
+
+<div style="width:10px;height:20px; display:block;float:left;"></div>
+ <div style="width:1005px;background-color:#2d2d30"> 
+<h1 id="title">Spell Test</h1> 
+     </div>
+    <div style="width:1006px; height:1px; background-color:#007acc"></div>
+    <div style="width:1006px; height:60px; vertical-align:bottom;"></div>
+ <form id="form" enctype="multipart/form-data" runat="server" method="post" action="~/Words/Translate">
+<div style="width:901px; height:40px; margin:0 auto">
+    <div>
+        <input type="text" name="from" value="@Model.From" readonly="readonly" style="float:left;height:24px; width:169px;">
+        <div class="changeTrans" title="Change"></div>
+        <input type="text" name="to" value="@Model.To" readonly="readonly" style="float:left;height:24px; width:169px;">
+        <div style="width:22px;height:10px;float:left"></div>
+        <input type="button" class="Inputbtn" value="Translate" style="width:60px;" onclick="TransSubmit()">
+    </div>
+</div>
+<div class="frame" style="width:901px; height:230px; margin:0 auto">
+    <div class="Transbox">
+        <div style="background-color:#3f3f46;width:450px;height:25px">Output</div> 
+        <textarea id="result" name="result" style="background-color:#1e1e1e; width:450px;height:205px;" readonly="readonly">@Model.Dst</textarea>
+    </div>
+    <div style="background-color:#CA5100;width:1px;height:230px; float:right"></div>
+    <div class="Transbox">     
+       <div style="background-color:#3f3f46;width:450px;height:25px">Input</div>   
+       <textarea id="query" name="query" style="background-color:#282828; width:450px;height:205px;margin:0 auto;">@Model.Src</textarea>
+    </div>
+    </div>
+ </form>
+<div style="width:901px; height:60px; margin:0 auto"></div>
+<div class="frame" style="width:901px; height:305px; margin:0 auto; box-shadow: 0 0 4px #007acc; border: 1px solid #007acc;">
+        <div>     
+       <div style="background-color:#2d2d30;width:891px;height:24px; padding-left:10px;">Example Sentence</div>
+       <div style="background-color:#2d2d30;width:901px;height:1px;background-color:#007acc;"></div>
+       <textarea style="width:901px;height:280px;margin:0 auto; background-color:#1e1e1e;" readonly="readonly">@Model.Sentence</textarea>
+    </div>
+</div>
+    <script type="text/javascript">
+        function TransSubmit() {
+            $("#form").submit();
+        }
+        $(".changeTrans").click(function () {
+            var to = $("input[name='to']").val();
+            var from = $("input[name='from']").val();
+
+            $("input[name='to']").val(from);
+            $("input[name='from']").val(to);
+
+
+        })
+        </script>

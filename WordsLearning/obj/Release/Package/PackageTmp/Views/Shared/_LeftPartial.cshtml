@@ -1,0 +1,91 @@
+﻿@model List<WordsLearning.Models.PageInfo>
+@{
+var rootPath = Url.Content("~");
+int admin = Model.Where(t => t.Power == 0).Count();
+}
+
+<div style="height:21px">
+<img onclick="hideandshow()" id="fold" src="~/Content/themes/base/images/unfolder.png"  style="display:block; float:right;">
+<div style="background-image:url(/Content/themes/base/images/Learning.png);height:21px;color:#FFFFFF;font-size:12px;padding-left:10px;  font-family:'Microsoft YaHei';font-weight:100;">Learning</div>
+    </div>
+<div id="pagelist" class="links" onload="checkpower(@admin)">
+@foreach(var item in Model.Where(t=>t.Power==1))
+{
+    <div style="width:inherit;height:2px;visibility:hidden"></div> 
+    
+    <div onclick="skip(this)">
+@*         <img src="~/Content/themes/base/images/pageheader.png" style="display:block;float:left;"></img>*@
+        <div style="width:5px;height:inherit; display:block; float:left; visibility:hidden;"></div>
+@*        <div style="color:#ffffff;font-size:13px;padding-top:3px;">@item.PageName</div> *@   
+         @Html.ActionLink(item.PageName, item.ActionName,item.ControllerName)        
+        </div>
+}
+    <div style="width:inherit;height:35px; visibility:hidden;"></div>
+</div>
+<div style="width:inherit;height:3px;"></div>
+<div style="height:21px">
+    <img onclick="mhideandshow()" id="mfold" src="~/Content/themes/base/images/munfolder.png"  style="display:none; float:right;">
+<div id="mhead" style="background-image:url(/Content/themes/base/images/Manage.png);height:21px;color:#FFFFFF;font-size:12px;padding-left:10px;margin-top:2px; font-family:'Microsoft YaHei';display:none;">Manage</div>
+    </div>
+<div id="managelist" class="links">
+@foreach(var items in Model.Where(t=>t.Power==0))
+{
+    <div style="width:inherit;height:2px;visibility:hidden"></div> 
+    
+    <div onclick="skip(this)">      
+@*         <img src="~/Content/themes/base/images/pageheader.png" style="display:block;float:left;"></img>*@
+        <div style="width:5px;height:inherit; display:block; float:left; visibility:hidden;"></div>
+        @*<div onclick="window.loaction='@(rootPath)@item.ControllerName/@item.ActionName'">*@
+@*        <div style="color:#ffffff;font-size:13px;padding-top:3px;">@items.PageName</div> *@
+        @Html.ActionLink(items.PageName, items.ActionName,items.ControllerName)
+        </div>
+}
+</div>
+<script type="text/javascript">
+   
+    $(document).ready(function () {
+        checkpower(@admin)
+    });
+
+    function skip(obj)
+    {
+        node = obj.childNodes;
+        node[3].click();
+    }
+
+    function checkpower(admin)
+    {
+        if (admin >0) {
+            $("#mfold").css({ "display": "block" });
+            $("#mhead").css({ "display": "block" });
+        }
+    }
+
+    i = 1;
+    m = 1;
+    function hideandshow()
+    {
+        if (i == 1) {
+            $("#pagelist").hide();
+            i = 0;
+            $("#fold").attr('src', '/Content/themes/base/images/folder.png');
+        }
+        else {
+            $("#pagelist").show();
+            i = 1;
+            $("#fold").attr('src', '/Content/themes/base/images/unfolder.png');
+        }
+    }
+    function mhideandshow() {
+        if (m == 1) {
+            $("#managelist").hide();
+            m = 0;
+            $("#mfold").attr('src', '/Content/themes/base/images/mfolder.png');
+        }
+        else {
+            $("#managelist").show();
+            m = 1;
+            $("#mfold").attr('src', '/Content/themes/base/images/munfolder.png');
+        }
+    }
+</script>

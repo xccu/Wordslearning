@@ -1,0 +1,889 @@
+* {
+    margin: 0;
+    padding: 0;
+    outline: 0;
+    border:none;
+}
+
+body {
+    /*background-color: #1e1e1e;*/
+    background-color:#2d2d30;
+    color: #c8c8c8;
+    margin: 0 auto;
+    border:none;
+    font-family: "Calibri" ! important;
+    font-weight:100;
+}
+
+div {
+    word-wrap:break-word;
+}
+
+input {
+    background-color:#3f3f46; 
+    border:none; 
+    color:#c8c8c8; 
+    height:21px;
+}
+
+label.error { 
+    /*float: none;*/ 
+    font-size:12px;
+    color: #D69D85; 
+    /*padding-left: .5em; 
+    vertical-align: top;*/ 
+} /*for error message*/
+
+
+a {
+    color: #9cdcfe;
+}
+
+
+textarea {
+    background-color:#3f3f46;
+    color:#c8c8c8;
+    font-family: "Calibri" ! important;
+    resize: none;
+}
+
+
+/*div > h4 {
+    background-color:#CA5100;
+    width:997px;
+    height:30px;
+}*/
+
+form > table {
+    /*color: #4cff00;*/
+    text-align: right;
+    /*width: 1000px;*/
+    border-left: 2px;
+    border-top: 2px;
+    border-bottom:2px;
+    /*border-bottom-color:#CA5100;
+    border-bottom-solid:2px;*/
+}
+
+form >table > th {
+    background: #007acc;
+    color: #FFFFFF;
+    height: 30px;
+}
+
+form >table>tbody > tr>td {
+    color: #c8c8c8;
+}
+
+select {
+    border:none;
+    background-color:#3f3f46;
+    color:#c8c8c8;
+    filter: alpha(opacity: 0); 
+    /*background-image:url(/Content/themes/base/images/openfile.png);*/
+}
+
+.formin {
+    width:986px;
+    border:1px solid #CA5100;
+    border-color:#CA5100;
+    box-shadow:0 0 4px  #CA5100;
+    display:block;
+    float:right;
+    margin-right:5px;
+    margin-top:10px;
+}
+
+.formin>.title {
+  padding-left:5px;
+  height:20px;
+  /*background-color:#2d2d30;
+  color:#c8c8c8;*/
+  background-color:#CA5100;
+  color:#FFFFFF;
+  width:989px;
+  display: table-cell;
+  vertical-align: middle;
+  border-bottom:1px solid #CA5100;
+}
+
+.formout {
+    width:986px;
+    border:1px solid #007acc;
+    box-shadow:0 0 4px  #007acc;
+    /*display:block;*/
+    margin-right:5px;
+    float:right;
+    margin-top: 10px;
+}
+
+    .formout > .panel {
+        text-align:right; 
+        width:986px; 
+        height:21px; 
+        display:table-cell;
+        float:right; 
+        background-color:#2d2d30;
+        padding-bottom:2px;
+        padding-top:2px; 
+        border-bottom:1px solid #007acc;
+    }
+
+.formout>.title{
+  height:20px;
+  /*background-color:#2d2d30;
+  color:#c8c8c8;*/
+  /*border-bottom:1px solid #007acc;*/
+  background-color:#007acc;
+  color:#FFFFFF;
+  width:989px;
+  display: table-cell;
+  vertical-align: middle;
+  padding-left:5px;
+}
+
+.export {
+    background-image:url("/Content/themes/base/images/Export.png");
+    background-position: 0px 21px;
+    display:block; 
+    float:right;
+    border:none;
+    width:16px;
+    height:21px;
+}
+
+    /*鼠标经过激活*/
+    .export:hover {
+    background-position: 32px 21px;
+    }
+    
+    /*鼠标点击激活,必须位于hover之后*/
+    .export:active {
+    background-position: 16px 21px;
+    }
+
+    .getAdmin {
+        background-image:url("/Content/themes/base/images/admin.png");
+    background-position: 0px 0px;
+    display:block; 
+    float:right;
+    border:none;
+    width:16px;
+    height:21px;
+}
+
+    /*鼠标经过激活*/
+    .getAdmin:hover {
+    background-position: 32px 0px;
+    }
+    
+    /*鼠标点击激活,必须位于hover之后*/
+    .getAdmin:active {
+    background-position: 16px 0px;
+    }
+
+.import {
+    background-image:url("/Content/themes/base/images/import.png");
+    background-position: 0px 21px;
+    display:block; 
+    float:right;
+    border:none;
+    width:18px;
+    height:21px;
+}
+
+    /*鼠标经过激活*/
+.import:hover {
+    background-position: 36px 21px;
+    }
+    
+    /*鼠标点击激活,必须位于hover之后*/
+.import:active {
+    background-position: 18px 21px;
+    }
+
+    .Refresh {
+    background-image:url("/Content/themes/base/images/refresh.png");
+    background-position: 0px 21px;
+    display:block; 
+    float:right;
+    border:none;
+    width:18px;
+    height:21px;
+}
+
+    /*鼠标经过激活*/
+    .Refresh:hover {
+    background-position: 36px 21px;
+    }
+    
+    /*鼠标点击激活,必须位于hover之后*/
+    .Refresh:active {
+    background-position: 18px 21px;
+    }
+
+.subtitle {
+    width:1005px;
+    background-color:#2d2d30;
+    border-bottom:1px solid #007acc;
+}
+
+.subtitle > h1 {
+    vertical-align:middle;
+    padding-left: 5px;
+    width:124px;
+    background-color:#007acc;
+    color:#FFFFFF;
+    margin-left:45px;
+    font-size:14px;
+    font-weight:100;
+}
+
+#Score {
+    height:340px;
+    width:700px;
+    border:1px solid #007acc;
+    border-color:#007acc;
+    box-shadow:0 0 4px  #007acc;
+    display:block;
+    margin:0 auto;
+    /*float:right;*/
+}
+
+#Score>h4 {
+    padding-left:1px;
+  height:23px;
+  background-color:#007acc;
+  color:white;
+  width:700px;
+  display: table-cell;
+  vertical-align: middle;
+}
+
+#serverTime {
+   background-color:#007acc;
+   display:block;
+   float:right; 
+   padding-right:10px; 
+   height:17px;
+   color:#FFFFFF;
+   padding-left:5px;
+
+}
+
+#filebutton {
+    border:none;
+    width:20px;
+    height:21px;
+    background-image:url(/Content/themes/base/images/openfile.png);
+}
+
+.box-buttons {
+    padding-left:785px;
+    background-color:#2d2d30;    
+}
+
+
+
+.changeTrans {
+    width:20px;
+    height:24px;
+    margin-left:5px;
+    margin-right:5px;
+    float:left;
+    background-image:url(/Content/themes/base/images/changeTrans.png);
+    background-position:0px 0px;
+}
+
+.changeTrans:hover {    
+    background-position:40px 0px;
+}
+
+.changeTrans:active {    
+    background-position:20px 0px;
+}
+
+.checked {
+    width:13px;
+    height:13px;
+    margin-left:3px;
+    margin-top:3px;
+    float:left;
+    background-image:url(/Content/themes/base/images/checkbox.png);
+    background-position:13px 0px;
+}
+
+.unchecked {
+    width:13px;
+    height:13px;
+    margin-left:3px;
+    margin-top:3px;
+    float:left;
+    background-image:url(/Content/themes/base/images/checkbox.png);
+    background-position:0px 0px;
+}
+
+.clock {
+    width:17px;
+    height:17px;
+    background-image:url(/Content/themes/base/images/clock.png);
+    display:block;
+    float:right; 
+}
+
+.frame {
+    box-shadow: 0 0 4px #CA5100; 
+    border: 1px solid #CA5100; 
+    margin: 0 auto; 
+    background-color:#1e1e1e;
+    /*width: 651px; 
+    height: 422px*/
+}
+
+
+.worddetail {
+    width:800px; 
+    margin-left:100px;
+    margin-top:100px; 
+    background-color:#1e1e1e; 
+    position:fixed !important;
+}
+
+.header {
+    display:table-cell;
+    vertical-align:middle;
+    height:21px;
+    font-size:13px;
+    width:1180px; 
+    text-align:right;
+}
+
+.help {
+    width:16px;
+    height:17px;
+    background-image:url(/Content/themes/base/images/help.png);
+    background-position:0px 0px;
+    display:block;
+    float:right; 
+    margin-right:2px;
+}
+
+.help:hover {    
+    background-position:32px 0px;
+}
+
+.help:active {    
+    background-position:16px 0px;
+}
+
+.Inputbtn {
+    border:1px solid #3399FF;
+    background-color:#2D2D30;
+    width:49px;
+    height:24px;
+    /*background-image:url(/Content/themes/base/images/button-off.png)*/
+}
+
+.Inputbtn:hover {
+    background-color:#3E3E40;
+    /*background-image:url(/Content/themes/base/images/button-on.png)*/
+}
+
+.markbtn {
+    border:none;
+    font-size: 0;
+    background-image:url("/Content/themes/base/images/bookmark.png");
+    width:16px;
+    height:16px;
+    margin-bottom:1px;
+    background-position:0px 0px;
+}
+
+.readingContent{
+    width:998px; 
+    color:#c8c8c8;
+    /*height:650px;*/
+    font-size:14px;
+}
+.readingContent > p {
+     color:#c8c8c8;
+}
+
+.Menu {
+    width:430px;
+    height:24px;
+    border:1px solid #88D184;
+    box-shadow:0 0 4px  #88D184;
+}
+
+.next {
+    background-image:url(/Content/themes/base/images/next.png);
+    width:16px;
+    height:16px;
+    margin-top:2px;
+    background-position:48px 0px;
+}
+
+.next:hover {
+    background-position:32px 0px;
+}
+
+.next:active {
+    background-position:16px 0px;
+}
+
+.previous {
+    background-image:url(/Content/themes/base/images/previous.png);
+    width:16px;
+    height:16px;
+    margin-top:2px;
+    background-position:48px 0px;
+}
+
+.previous:hover {
+    background-position:32px 0px;
+}
+.previous:active {
+    background-position:16px 0px;
+}
+
+.first {
+    background-image:url(/Content/themes/base/images/first.png);
+    width:16px;
+    height:16px;
+    margin-top:2px;
+    background-position:48px 0px;
+}
+
+.first:hover {
+    background-position:32px 0px;
+}
+
+.first:active {
+    background-position:16px 0px;
+}
+
+.last {
+    background-image:url(/Content/themes/base/images/last.png);
+    width:16px;
+    height:16px;
+    margin-top:2px;
+    background-position:48px 0px;
+}
+
+.last:hover {
+    background-position:32px 0px;
+}
+
+.last:active {
+    background-position:16px 0px;
+}
+
+
+.tSource {
+    width:448px;
+    height:220px;
+    border:1px solid #007acc;
+    margin: 0 auto;
+    background-color: #1e1e1e;
+    box-shadow:0 0 4px  #007acc;
+    float:left;
+    text-align:center;
+}
+
+.Transbox {
+    width:450px;
+    height:220px;
+    /*border:1px solid #CA5100;*/
+    margin: 0 auto;
+    background-color: #1e1e1e;
+    /*box-shadow:0 0 4px  #CA5100;*/
+    float:right;
+    text-align:center;
+}
+
+    /*.tSource > textarea .tTarget > textarea  {
+        background-color:#2d2d30;
+        width:390px;
+        height:190px;
+        margin:0 auto;
+    }*/
+
+.userinfo {
+    width:16px;
+    height:17px;
+    background-image:url(/Content/themes/base/images/userinfo.png);
+    background-position:0px 0px;
+    display:block;
+    float:right; 
+    margin-right:5px;
+}
+
+.userinfo:hover {    
+    background-position:32px 0px;
+}
+
+.userinfo:active {    
+    background-position:16px 0px;
+}
+
+#fold {
+    border:none;
+    width:20px;
+    height:21px;
+/*background-image:url(/Content/themes/base/images/folder.png);*/
+}
+
+#footer {
+    text-align:center;
+    font-size:12px;
+    color:#c8c8c8;
+   display: table-cell;
+   vertical-align: middle;
+    height:25px;
+    width:1185px;
+   background-image:url(/Content/themes/base/images/footer.png);
+   background-position:center;
+}
+
+#left {
+    /*border-color:#007acc;*/
+    /*border:1px solid #007acc;*/
+    background-color:#282828;
+    width:180px;
+    height:800px;
+    border-bottom:0px;
+    
+}
+
+    .links > div {
+       /*box-shadow:0 0 4px  #007acc;
+       border:1px solid #007acc;*/
+       height:23px;
+       vertical-align:central;
+       background-color:#3f3f46;
+    }
+
+    .links > div:hover {
+            background-color:#333334;
+        }
+
+    .links > div:active {
+            background-color:#2d2d30;
+        }
+
+    .links > div > a {
+        text-decoration:none; /*消除下划线*/
+        color:#FFFFFF;
+        font-size:13px;
+    }
+
+    .mlinks > div {
+       box-shadow:0 0 4px  #CA5100;
+       border:1px solid #CA5100;
+       height:21px;
+       vertical-align:central;
+       background-color:#262626;
+    }
+
+    .mlinks > div:hover {
+            background-color:#222222;
+        }
+
+    .mlinks > div:active {
+            background-color:#161616;
+        }
+
+    .mlinks > div > a {
+        text-decoration:none; /*消除下划线*/
+        color:#FFFFFF;
+        font-size:13px;
+    }
+
+.spellurl {
+    text-decoration: none;
+}
+
+
+
+#export {
+    background-image:url("/Content/themes/base/images/Export.png");
+    background-position: 0px 0px;
+    display:block; 
+    float:right;
+    border:none;
+    width:16px;
+    height:21px;
+}
+
+    /*鼠标经过激活*/
+    #export:hover {
+    background-position: 32px 0px;
+    }
+    
+    /*鼠标点击激活,必须位于hover之后*/
+    #export:active {
+    background-position: 16px 0px;
+    }
+
+    #LastMark {
+    background-image:url("/Content/themes/base/images/lastpage.png");
+    background-position: 0px 0px;
+    display:block; 
+    float:right;
+    border:none;
+    width:18px;
+    height:21px;
+}
+
+    /*鼠标经过激活*/
+    #LastMark:hover {
+    background-position: 36px 0px;
+    }
+    
+    /*鼠标点击激活,必须位于hover之后*/
+    #LastMark:active {
+    background-position: 18px 0px;
+    }
+
+#import {
+    background-image:url("/Content/themes/base/images/import.png");
+    background-position: 0px 0px;
+    display:block; 
+    float:right;
+    border:none;
+    width:18px;
+    height:21px;
+}
+
+    /*鼠标经过激活*/
+    #import:hover {
+    background-position: 36px 0px;
+    }
+    
+    /*鼠标点击激活,必须位于hover之后*/
+    #import:active {
+    background-position: 18px 0px;
+    }
+
+    #getmark {
+    background-image:url("/Content/themes/base/images/bookmark.png");
+    background-position: 0px 21px;
+    display:block; 
+    float:right;
+    border:none;
+    width:16px;
+    height:21px;
+}
+
+    /*鼠标经过激活*/
+    #getmark:hover {
+ background-position: 32px 21px;
+    }
+    
+    /*鼠标点击激活,必须位于hover之后*/
+    #getmark:active {
+    background-position: 16px 21px;
+    }
+
+
+#page {
+    border:1px solid #007acc;
+    margin: 0 auto;
+    width:1185px;
+    background-color: #1e1e1e;
+    box-shadow:0 0 4px  #007acc;
+}
+
+#testarea {
+    width:800px;
+    border:1px solid #CA5100;
+    margin: 0 auto;
+    background-color: #1e1e1e;
+    box-shadow:0 0 4px  #CA5100;
+}
+
+#Registerform {
+    border:1px solid #CA5100;
+    margin: 0 auto;
+    width:800px;
+    background-color: #1e1e1e;
+    box-shadow:0 0 4px  #CA5100;
+}
+
+    #Refresh {
+    background-image:url("/Content/themes/base/images/refresh.png");
+    background-position: 0px 0px;
+    display:block; 
+    float:right;
+    border:none;
+    width:18px;
+    height:21px;
+}
+
+    /*鼠标经过激活*/
+    #Refresh:hover {
+    background-position: 36px 0px;
+    }
+    
+    /*鼠标点击激活,必须位于hover之后*/
+    #Refresh:active {
+    background-position: 18px 0px;
+    }
+
+#Reghead {
+    color:white;
+    background-color:#CA5100;
+    width:inherit;
+    height:30px;
+    
+}
+
+#search {
+    background-image:url("/Content/themes/base/images/search.png");
+    display:block; 
+    float:right;
+    border:none;
+    width:18px;
+    height:21px;
+    background-position: 0px 0px;
+}
+
+    /*鼠标经过激活*/
+    #search:hover {
+    background-position: 36px 0px;
+    }
+    
+    /*鼠标点击激活,必须位于hover之后*/
+    #search:active {
+    background-position: 18px 0px;
+    }
+
+    select {
+  /*/*Chrome和Firefox里面的边框是不一样的，所以复写了一下*/
+  border: solid 0px #000;
+
+  /*很关键：将默认的select选择框样式清除*/
+  appearance:none;
+  -moz-appearance:none;
+  -webkit-appearance:none;
+
+  /*在选择框的最右侧中间显示小箭头图片*/
+  background: url("/Content/themes/base/images/down.png") no-repeat scroll right center transparent;*/
+
+
+  /*为下拉小箭头留出一点位置，避免被文字覆盖*/
+  /*padding-right: 14px;*/
+}
+
+/*#table > tbody > tr > td:first-child:not(#AvoidContent) {
+    color: red;
+}*/
+
+#table > tbody > tr > td {
+    color: #c8c8c8;
+}
+
+/*#table > tbody > tr > td >a{
+    color: #9cdcfe;
+}*/
+
+.answertd {
+    background-color:#2d2d30;
+    border-left:1px solid #ff6a00;
+}
+
+
+#content {
+    color: white;
+}
+
+.answerth {
+    background: #CA5100;
+    text-align:center;
+    color: #FFFFFF;
+    height: 30px;
+}
+
+.headfont{   
+   padding-left:6px;
+    padding-top:6px;
+    float:left;
+    /*color:#6A6A6B;
+    background-color:#2d2d30;
+    width:inherit;
+    height:30px;*/
+}
+
+.logo {
+    margin-top:10px;
+     margin-left:5px;
+     width:31px;
+     height:30px;
+     background-image:url("/Content/themes/base/images/Logo.png");
+     display:block;
+     float:left;
+}
+
+.tinytable {
+    margin-right:0px;
+    text-align: center;
+    /*width: 1002px;*/
+    width: 986px;
+    padding-right:0px;
+    border-bottom:none;
+    
+    /*border-left: 1px;
+    border-top: 1px;
+    border-bottom: none;*/
+}
+
+/*.tinytable a {
+    color: #c8c8c8;
+}*/
+
+.tinytable th {
+    /*background: #007acc;*/
+    border:1px solid #3f3f46;
+    background:#383838;
+    /*color: #FFFFFF;*/
+    line-height: 19px;
+    /*border:none;*/
+    margin:1px;
+}
+
+.tinytable body {
+    background: #2d2d30;
+}
+.tinytable td {
+    border-bottom: 1px solid #95bce2;
+
+    line-height: 18px;
+    /*align-content: center;*/
+}
+
+
+
+#tablenav div {
+    float: left;
+}
+
+#tablenav > div {
+    margin-left:5px;
+}
+
+#tablelocation {
+    float: right;
+    font-size: 12px;
+}
+
+#tablelocation div {
+    float:right;
+    margin-top:2px;
+    font-size:12px;
+    }
+
+#selectedrow td {
+    border-bottom: 0px;
+    line-height: 18px;
+}

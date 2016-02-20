@@ -1,0 +1,66 @@
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML>
+<HEAD>
+<TITLE> New Document </TITLE>
+<META NAME="Generator" CONTENT="EditPlus">
+<META NAME="Author" CONTENT="">
+<META NAME="Keywords" CONTENT="">
+<META NAME="Description" CONTENT="">
+</HEAD>
+<SCRIPT type="text/javascript">
+  function autoRowSpan(tb,row,col)
+    {
+        var lastValue="";
+        var value="";
+        var pos=1;
+        for(var i=row;i<tb.rows.length;i++)
+        {
+            value = tb.rows[i].cells[col].innerText;
+            if(lastValue == value)
+            {
+                tb.rows[i].deleteCell(col);
+                tb.rows[i-pos].cells[col].rowSpan = tb.rows[i-pos].cells[col].rowSpan+1;
+                pos++;
+            }else{
+                lastValue = value;
+                pos=1;
+            }
+        }
+    }
+
+</SCRIPT>
+<BODY onload="autoRowSpan(tb,0,0)">
+<TABLE id="tb" border="1">
+<THEAD>
+	<TR >
+		<TD>国家</TD>
+		<TD>地区</TD>
+	</TR>
+</THEAD>
+<TR>
+ <TD>中国</TD>
+ <TD>河南</TD>
+</TR>
+<TR>
+ <TD>中国</TD>
+ <TD>四川</TD>
+</TR>
+<TR>
+ <TD>中国</TD>
+ <TD>北京</TD>
+</TR>
+<TR>
+ <TD>美国</TD>
+ <TD>纽约</TD>
+</TR>
+<TR>
+ <TD>美国</TD>
+ <TD>洛杉矶</TD>
+</TR>
+<TR>
+ <TD>英国</TD>
+ <TD>伦敦</TD>
+</TR>
+</TABLE>
+</BODY>
+</HTML>

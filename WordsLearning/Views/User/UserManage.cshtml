@@ -1,0 +1,305 @@
+﻿@model  IEnumerable<WordsLearning.Models.UserInfo>
+
+@{
+    ViewBag.Title = "User Manage";
+    var rootPath = Url.Content("~");
+    var PageList = (List<int>)ViewBag.PageList;
+}
+        <div style="width:10px;height:20px; display:block;float:left;"></div>   
+ <div class="subtitle">  
+<h1>User Manage</h1> 
+     </div>
+
+                <div style="width:1000px; padding-left:1px;">
+    <div class ="formin">
+        <h4 class="title">Add User</h4>
+
+
+
+        <div id="Edit" class="frame" style="display:none;margin-left:100px">
+            <div style="background-color:#2d2d30;width:800px;height:30px">         
+                <div class="logo" style="margin-top:0px"></div>           
+                <div class="headfont">Edit User</div>           
+                <div class="box-buttons" style="padding-left:780px;padding-top:5px;"><button type="button" class="simplemodal-close" style="width:12px;height:12px;background:url(/Content/themes/base/images/close.png)"></button></div>                 
+             </div>
+             <div style="width:800px;height:1px;background-color:#CA5100"></div>
+        <iframe scrolling="no" id="newFrame" src="javascript:;" style="width:800px;height:250px"></iframe>
+        </div>
+
+        <form id="form" enctype="multipart/form-data" runat="server" method="post" action="~/User/CreateUser">
+            <table>
+            <tr>
+                <td style="height: 21px; width:200px;">Name:</td>
+                <td style="width:169px">
+                    <input type="text" name="Name" id="Name"></td>
+                <td style="height: 21px; width:200px;">Password:</td>
+                <td style="width:169px">
+                    <input type="text" name="Password" id="Password"></td>
+            </tr>
+            <tr>
+                <td style="height: 21px; width:200px;">Age:</td>
+                <td style="width:169px">
+                    <input type="text" name="Age" id="Age"></td>
+                <td style="height: 21px; width:200px;">Sex:</td>
+                <td style="width:169px">
+                    <select id="Sex" name="Sex" style="width:169px; height:21px; background-color:#333334">                  
+                        <option value="male">male</option>
+                        <option value="female">female</option>
+                    </select></td>
+            </tr>
+            <tr>
+                <td style="height: 21px; width:200px;">Power:</td>
+                <td style="width:169px;text-align:left">
+                    <select id="Power" name="Power" style="width:100px; height:21px; background-color:#333334">                  
+                <option value="0">Admin</option>
+                <option value="1">User</option>
+            </select>
+                </td>
+                <td style="height: 21px; width:200px;" >Country:</td>
+                <td style="width:169px">
+                    <input type="text" name="Country" id="Country"></td>
+            </tr>
+            <tr>
+                <td style="height: 21px; width:200px;">Status:</td>
+                <td style="width:169px;text-align:left">
+                    <select id="Status" name="Status" style="width:100px; height:21px; background-color:#333334">                  
+                 <option value="0">Activated</option>
+                 <option value="1">Unactivated</option>
+            </select>
+                </td>
+                <td style="height: 21px; width:200px;">Imgurl:</td>
+                <td style="width:169px">
+                  
+                    <input type="file" id="file" value="浏览"  name="Imgurl" style="display:none" onchange="filetext.value=this.value"/>
+                    
+                    <input type="text" id="filetext" style="width:149px;">
+                    <input type="button" onclick="upfile()" id="filebutton" style="display:block; float:right;">                                        
+                </td>
+                </tr>
+            <tr>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td>
+                    <input type="button" class="Inputbtn" value="Create"  onclick="submit()">
+                    <input type="hidden" name="Tag" id="Tag" value="0"></td>
+            </tr>
+        </table>    
+            </form>
+    @*}*@
+</div>     
+                    <div class="formout">
+                        <h4  class="title">User List</h4>
+        <div class="panel">
+            <div style="padding-top:4px;display:table-cell;float:left;font-size:14px; vertical-align: bottom; padding-left:5px;">Count:@ViewBag.UserCount</div>
+            <input type="button" id="search" onclick="search()" style="margin-right:2px;">
+            <input type="text" style="margin-left:5px; display:block; float:right;" id="searchtext">
+                        <img src="~/Content/themes/base/images/Inborder.png" style="display:block; float:right; margin-left:5px;"> 
+            <input type="button" class="Refresh" onclick="Refresh()" title="Refresh" style="margin-left:3px"> 
+            <input type="button" class="export" onclick="Export()" title="Save as Excel" style="margin-left:3px"> 
+            <input type="button" class="import" onclick="" title="import from Excel"style="margin-left:3px">       
+            <input type="button" class="getAdmin" onclick="getAdmin()" title="Admin">                  
+            <input type="hidden" id="uid" value="@ViewBag.userid">
+            <img src="~/Content/themes/base/images/Inborder.png" style="display:block; float:right; margin-right:5px;"> 
+        </div>
+            <table id="table" class="tinytable">
+                <thead>
+        <tr style="display:none">
+            <th style="text-align:left"><div style="display:block;float:left;width:2px;height:10px"></div>User List
+            </th>
+        </tr>
+            </thead>
+                 @foreach (var item in Model)
+                 {
+                     var pow = (item.Power == 0 ? "Admin" : "User");
+                     var sta = (item.Status == 0 ? "Activated" : "Unactivated");
+            <tr>
+                <td style="text-align:center">
+                      <table>
+     <tr>
+        <td rowspan="6" style="border-bottom:none; width:50px;text-align:center"></td>
+        <td rowspan="6" style="border-bottom:none; width:200px;text-align:center"><img src="@item.Imgurl"  height="90" /></td>
+    </tr>
+    <tr>
+        <td style="width:100px; border-bottom:none; text-align:right;">Name:</td>
+        <td style="width:169px; border-bottom:none; text-align:right;"><input type="text" name="Name"  value="@item.Name" readonly="readonly"></td>
+        <td style="width:160px; border-bottom:none; text-align:right;">Password:</td>
+        <td style="width:169px; border-bottom:none; text-align:right;"><input type="text" name="Password" value="@item.Password" readonly="readonly"></td>
+    </tr>
+    <tr>
+        <td style="width:100px; border-bottom:none; text-align:right;">Age:</td>
+        <td style="width:169px; border-bottom:none; text-align:right;"><input type="text" name="Age"  value="@item.Age" readonly="readonly"></td>
+        <td style="width:160px; border-bottom:none; text-align:right;" >Sex:</td>
+        <td style="width:169px; border-bottom:none; text-align:right;"><input type="text" name="Sex"  value="@item.Sex" readonly="readonly"></td>
+    </tr>
+    <tr>
+        <td style="width:100px; border-bottom:none; text-align:right;">Country:</td>
+        <td style="width:169px; border-bottom:none; text-align:right;"><input type="text" name="Country"  value="@item.Country" readonly="readonly"></td>
+        <td style="width:160px; border-bottom:none; text-align:right;">Power:</td>
+        <td style="width:169px; border-bottom:none; text-align:right;"><input type="text" name="Power"  value="@pow" readonly="readonly"></td>
+    </tr>
+    <tr>
+        <td style="width:100px; border-bottom:none; text-align:right;">Status:</td>
+        <td style="width:169px; border-bottom:none; text-align:right;"><input type="text" name="Status"  value="@sta" readonly="readonly"></td>
+        <td style="width:160px; border-bottom:none; text-align:right;"></td>
+        <td style="border-bottom:none;">
+            <a href='#' class='Edit' id="@item.Id">Edit</a> | <a href="javascript:void(0)" onclick="Delete(@item.Id)" class="tinytable">Delete</a>
+                    <input type="hidden" value="@item.Id">
+        </td>
+    </tr>
+                <tr>
+                    <td style="border-bottom:none;"></td>
+                    <td style="border-bottom:none;"></td>
+                    <td style="border-bottom:none;">
+                        <input type="hidden" id="Id" name="Id" value="@item.Id">
+                    </td>
+                </tr>
+</table>
+                </td>
+            </tr>
+                 }
+                </table>
+
+         <div id="tablefooter" style="width:984px;">
+          <div id="tablenav">
+                <input type="hidden" id="CurrentPage" value="@ViewBag.CurrentPage">
+            	<div>                
+                    <div class="first" title="First Page" onclick="firstPage();autoRowSpan(table, 0, 0)"></div>
+                    <div class="previous" title="previous" onclick="previouPage(@ViewBag.CurrentPage);autoRowSpan(table, 0, 0)"></div>
+                    <div class="next" title="Next Page" onclick="nextPage(@ViewBag.CurrentPage);autoRowSpan(table, 0, 0)" ></div>
+                    <div class="last" title="Last Page" onclick="lastPage();autoRowSpan(table, 0, 0)"></div>
+                </div>               
+                <div style="margin-left:10px">
+                	<select id="pagedropdown" style="width:50px; background-color:#333334;margin-bottom:2px;" onmouseup="autoRowSpan(table, 0,0)" onchange="skipPage(this)">
+                        @foreach (var item in PageList)
+                        {
+                            <option value="@item">@item</option> 
+                        }
+                	</select>                      
+				</div>               
+            </div>
+			<div id="tablelocation">
+                <div>Page:<span>@ViewBag.CurrentPage</span>&nbspTotal:<span id="totalpages">@PageList.Count()</span></div>
+            </div>
+        </div>
+                    </div>
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            setDropdownlist("CurrentPage", "pagedropdown");
+
+                });
+
+        function search()
+        {
+            search = $("#searchtext").val();
+            $.post("/User/Search", { search: search }, function (data)
+            {
+                if (data.IsSuccess) {
+                    window.location = '@(rootPath)User/UserManage'
+                }
+                else {
+                    alert("Search failed");
+                    window.location = '@(rootPath)User/UserManage'
+                                }
+            })
+        }
+
+        function getAdmin()
+        {
+            $.post("/User/GetAdmin",  function (data) {
+                if (data.IsSuccess) {
+                    window.location = '@(rootPath)User/UserManage'
+                }
+                else {
+                    alert("Get failed");
+                    window.location = '@(rootPath)User/UserManage'
+                }
+            })
+        }
+
+        function Refresh() {
+            $.post("/User/RemoveSession", function () {
+                location.reload();
+            });
+        }
+
+        function submit() {
+            $("#form").submit();
+        }
+
+        function Export() {
+            window.location = '@(rootPath)User/ExportExcel'
+                }
+
+        function skipPage(obj) {
+            Index = $(obj).val();
+            skip(Index);
+        }
+
+        function lastPage() {
+            Index = "@PageList.LastOrDefault()";
+                skip(Index);
+            }
+
+            function firstPage() {
+                skip(1);
+            }
+
+            function nextPage() {
+                Index = "@ViewBag.CurrentPage" == "@PageList.Count()" ? "@ViewBag.CurrentPage" :@ViewBag.CurrentPage +1;
+            skip(Index);
+        }
+
+        function previouPage() {
+            Index = "@ViewBag.CurrentPage" == "1" ? "1" :@ViewBag.CurrentPage -1;
+            skip(Index);
+        }
+
+        function skip(Index) {
+            $.post("/User/PageSkip", { Index: Index, PageSize: 20 }
+                , function (data) {
+                    if (data.IsSuccess) {
+                        location.reload();
+                    }
+                    else {
+                        alert("Skip failed");
+                        location.reload();
+                    }
+                })
+        }
+
+        function Delete(Id) {
+            $.post("/User/Delete/", { Id: Id }, function (data) {
+                if (data.IsSuccess) {
+                    window.location = '@(rootPath)User/UserManage'
+                }
+                else {
+                    alert("Delete failed:" + data.ErrorMessage);
+                    window.location = '@(rootPath)User/UserManage'
+                }
+            }
+      )
+        }
+
+        //var sorter = new TINY.table.sorter('sorter', 'table', {
+        //    paginate: true,
+        //    size: 5,
+        //    pageddid: 'pagedropdown',
+        //    navid: 'tablenav',
+        //    currentid: 'currentpage',
+        //    totalid: 'totalpages',
+        //    init: true
+        //});
+
+        $(function () {
+            $('.Edit').click(function () {
+                var id = this.id;
+                src = "@rootPath" + "User/Edit/" + id;
+                $("#newFrame").attr("src", src);
+                $('#Edit').modal();
+                return false;
+            });
+                })
+    </script>
+</div>

@@ -1,0 +1,22 @@
+﻿body
+{
+    font-size: 12px;
+    margin: 0px;
+}
+.stripe td
+{
+    border-bottom: 1px solid #95bce2;
+    line-height: 18px;
+}
+ table.table1
+{
+    border: 0px solid white;
+}
+.stripe tr.alt
+{
+    background: #ecf6fc;
+}
+.stripe tr.over
+{
+    background: #bcd4ec;
+}

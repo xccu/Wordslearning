@@ -1,0 +1,13 @@
+E:\job\WordsLearning\Model\bin\Release\Model.dll.config
+E:\job\WordsLearning\Model\bin\Release\Model.dll
+E:\job\WordsLearning\Model\bin\Release\Model.pdb
+E:\job\WordsLearning\Model\bin\Release\EntityFramework.dll
+E:\job\WordsLearning\Model\bin\Release\EntityFramework.xml
+E:\job\WordsLearning\Model\obj\Release\Model.Migrations.Initial.resources
+E:\job\WordsLearning\Model\obj\Release\Model.Migrations.Initial1.resources
+E:\job\WordsLearning\Model\obj\Release\Model.Migrations.Initial2.resources
+E:\job\WordsLearning\Model\obj\Release\Model.Migrations.Initial3.resources
+E:\job\WordsLearning\Model\obj\Release\Model.Migrations.Initial4.resources
+E:\job\WordsLearning\Model\obj\Release\Model.csproj.GenerateResource.Cache
+E:\job\WordsLearning\Model\obj\Release\Model.dll
+E:\job\WordsLearning\Model\obj\Release\Model.pdb

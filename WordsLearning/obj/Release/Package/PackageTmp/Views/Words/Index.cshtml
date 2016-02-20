@@ -1,0 +1,16 @@
+﻿@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+ @Html.ActionLink("Manage", "Manage")
+ @Html.ActionLink("Learning", "Learning")
+<div>
+    <form action="~/Views/Words/Index">
+                        <input type="file" id="file" value="浏览" name="url" />
+                    <input type="text" id="filetext">
+                    <input type="button" onclick="upfile()" id="filebutton">
+    <input type="submit">
+        </form>
+</div>
+<script src="@Url.Content("~/Scripts/fileController.js")" type="text/javascript"></script>

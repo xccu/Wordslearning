@@ -1,0 +1,131 @@
+﻿@model  WordsLearning.Models.UserInfo
+
+@{
+    Layout = "";
+    ViewBag.Title = "User Manage";
+    var rootPath = Url.Content("~");
+}   
+<body style="background-color:#1e1e1e">
+<div style="width:800px;">
+     <link href="@Url.Content("~/Styles/flora.datepicker.css")" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" href="@Url.Content("~/Styles/lanrenzhijia.css")" />
+    <div>
+         <form id="form" enctype="multipart/form-data" runat="server" method="post" action="~/User/Update">
+            <table style="padding-left:20px">
+     <tr>
+        <td rowspan="8"><img src="@Model.Imgurl"  height="220px" /></td>        
+    </tr>
+                <tr style="height:45px">
+                    <td></td>
+                    <td></td>
+                </tr>
+    <tr style="height:40px; vertical-align:top">
+        <td style="width:100px;">Name:</td>
+        <td style="width:169px"><input type="text" id="Name" name="Name" value="@Model.Name"></td>       
+        <td style="width:100px;">Password:</td>
+        <td style="width:169px"><input type="text" id="Password" name="Password" value="@Model.Password"></td>
+    </tr>
+    <tr>
+        <td style="width:100px;">Age:</td>
+        <td style="width:169px"><input type="text" id="Age" name="Age" value="@Model.Age"></td>  
+        <td style="width:100px;">Power:</td>
+        <td style="width:169px;text-align:left;">
+            <select id="Power" name="Power" style="width:100px; height:20px; background-color:#333334">                  
+                <option value="0">Admin</option>
+                <option value="1">User</option>
+            </select>
+            <input type="hidden" id="PowerInfo" value="@Model.Power">
+        </td>  
+    </tr>
+    <tr>
+        <td style="width:100px;" >Sex:</td>
+        <td style="width:169px">            
+            <select id="Sex" name="Sex" style="width:169px; height:20px; background-color:#333334">                  
+                <option value="male">male</option>
+                <option value="female">female</option>
+            </select>
+            <input type="hidden" name="SexInfo" id="SexInfo" value="@Model.Sex"></td>
+        <td style="width:100px;">Status:</td>
+        <td style="width:169px; text-align:left;">
+            <select id="Status" name="Status" style="width:100px; height:20px; background-color:#333334">                  
+                 <option value="0">Activated</option>
+                 <option value="1">Unactivated</option>
+            </select>
+            <input type="hidden" id="StatusInfo" value="@Model.Status">
+        </td>
+    </tr>
+    <tr>
+        <td style="width:100px;">Country:</td>
+        <td style="width:169px"><input type="text" id="Country" name="Country" value="@Model.Country"></td>
+        <td> 
+        </td>
+        <td> 
+              
+              <input type="hidden" name="Tag" id="Tag" value="0">
+        </td>
+    </tr>
+    <tr>
+        <td style="width:100px;">ChangeImage:</td>
+        <td style="width:169px">                  
+             <input type="file" id="file" value="浏览"  name="Imgurl" style="display:none" onchange="filetext.value=this.value"/>                    
+             <input type="text" id="filetext" name="filetext" style="width:149px;" readonly="readonly" value="@Model.Imgurl">
+             <input type="button" onclick="upfile()" id="filebutton" style="display:block; float:right;">       
+         
+        </td>
+        <td style="width:100px;"></td>
+        <td style="width:169px">
+             <div id="success" style="color:#4EC9B0;display:none; text-align:left;">Update Success</div>
+             <div id="failed" style="color:#D69D85;display:none;text-align:left;">Update Failed</div>  
+             <input type="hidden" id="status" value="@ViewBag.status"> 
+        </td>
+    </tr>
+    <tr>
+                    <td style="height:50px" colspan="4"><input type="hidden" id="Id" name="Id" value="@Model.Id"><input type="button" class="Inputbtn" value="Update"  onclick="submit()" style="margin-top:14px"></td>
+                </tr>
+</table>
+            </form>
+    @*}*@
+</div>
+        </div>
+    <script src="@Url.Content("~/Scripts/jquery-1.4.1.min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/FrameStatus.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/setDropdownlist.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/fileController.js")" type="text/javascript"></script>
+    <script type="text/javascript">
+
+        $(document).ready(function () {
+            setDropdownlist("PowerInfo", "Power")
+            setDropdownlist("StatusInfo", "Status")
+            setDropdownlist("SexInfo", "Sex")
+        });
+
+        function submit() {
+            $("#form").submit();
+        }
+
+        function Update()
+        {
+            //fullpath();
+            Id = $("#Id").val();
+            Name = $("#Name").val();
+            Password = $("#Password").val();
+            Age = $("#Age").val();
+            Sex = $("#Sex").val();
+            Country = $("#Country").val();
+            Imgurl = $("#filetext").val();
+            Power = $("#Power").val();
+            Status = $("#Status").val();
+            $.post("/User/Update", {Id:Id, Name: Name, Password: Password, Age: Age, Sex: Sex, Country: Country,Imgurl: Imgurl,Power:Power,Status:Status}, function (data)
+            {
+                if (data.IsSuccess)
+                {
+                    window.location='@(rootPath)User/UserManage'
+                }
+                else {
+                    alert("Update failed");
+                    window.location = '@(rootPath)User/UserManage'
+                }
+            })
+        }
+    </script>
+    </body>

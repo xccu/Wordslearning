@@ -1,0 +1,43 @@
+﻿@{
+    Layout = "";
+    ViewBag.Title = "ImportExcel";
+    var LibraryList = (List<WordsLearning.Models.LibraryInfo>)ViewBag.list;
+}
+<body style="background-color:#1e1e1e">
+    <input type="hidden" id="status" value="@ViewBag.status">
+    <div style="width:400px;height:20px;">
+        <div id="importing" style="display:none;text-align:center;">
+            <img src="~/Content/themes/base/images/Importing.gif";   />
+        </div>
+        <div id="success" style="color:#4EC9B0;display:none;text-align:center">Import Success</div>
+        <div id="failed" style="color:#D69D85;display:none;text-align:center">Import Failed</div>
+    </div>   
+    <div style="width:400px;padding-left:40px;">
+    <link href="@Url.Content("~/Styles/flora.datepicker.css")" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" href="@Url.Content("~/Styles/lanrenzhijia.css")" />
+<form id="form" enctype="multipart/form-data" runat="server" method="post" action="~/Words/Upload">     
+    <select id="Library" name="Library" style="width:70px; height:24px; background-color:#333334; margin-right:10px;margin-left:1px; float:left;" onchange="Fliterlibrary()">                  
+        @foreach (var item in LibraryList)
+        {
+            <option value="@item.LibraryId">@item.LibraryName</option>
+        }
+        <option value="-1">Others</option>
+    </select>    
+    <input type="file" id="file" value="浏览"  name="url" style="display:none" onchange="filetext.value=this.value"/>                                
+    <input type="text" id="filetext" name="filetext" style="width:149px; float:left;height:24px;" readonly="readonly">            
+    <input type="button" onclick="upfile()" id="filebutton" style="display:block; float:left; height:24px"> 
+    <div style="width:10px;height:20px; float:left"></div>  
+    <input type="button" class="inputbtn" value="Import" onclick="xlsImport()">
+</form>
+        </div>
+
+<script src="@Url.Content("~/Scripts/jquery-1.4.1.min.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/FrameStatus.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/fileController.js")" type="text/javascript"></script>
+<script type="text/javascript">
+    function xlsImport() {
+        $("#importing").css({ "display": "block" });
+        $("#form").submit();
+    }
+</script>
+    </body>

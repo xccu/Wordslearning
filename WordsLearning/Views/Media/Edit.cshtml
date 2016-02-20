@@ -1,0 +1,80 @@
+﻿@model WordsLearning.Models.MusicInfo
+@{
+    Layout = "";
+    var rootPath = Url.Content("~");
+    ViewBag.Title = "Edit";
+}
+
+<body style="background-color:#1e1e1e">
+ <div style="width:800px;"> 
+    <link href="@Url.Content("~/Styles/flora.datepicker.css")" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" href="@Url.Content("~/Styles/lanrenzhijia.css")" />
+
+                <div style="width:800px; height:5px;"></div>
+                     <div>
+          <form id="form" enctype="multipart/form-data" runat="server" method="post" action="~/Media/Update">  
+            <table style="padding-left:50px;">
+            <tr>
+                 <td style="height: 22px; width: 60px">Name:</td>
+                <td style="text-align:left">
+                    <input type="hidden" id="Id" name="Id" value="@Model.Id">
+                    <input type="hidden" id="Date" name="Date" value="@Model.Date">
+                    <input type="text" id="Name" name="Name" style="width:200px;" value="@Model.Name">
+                </td>
+            </tr>
+            <tr>
+                <td style="height: 22px; width: 60px">Singer:</td>
+                <td style="text-align:left">
+                    <input type="text" id="Singer" name="Singer" style="width:200px;" value="@Model.Singer">
+                </td>
+            </tr>
+            <tr>
+                <td style="height: 22px; width: 60px;">Url:</td>
+                <td colspan="3" style="text-align:left">
+             <input type="file" id="file" value="浏览"  name="Url" style="display:none" onchange="filetext.value=this.value"/>                    
+             <input type="text" id="filetext" name="filetext" style="width:580px; display:block; float:left;" value="@Model.Url">
+             <input type="button" onclick="upfile()" id="filebutton" style="display:block; float:left;">
+                </td>
+            </tr>
+           <tr>
+                <td style="height: 22px; width: 60px;vertical-align:text-top">Lrc:</td>
+                <td>
+                    <textarea id="Lrc" name="Lrc" style="width:600px;height:200px">@Model.Lrc</textarea>
+                    </td>
+            </tr>
+            <tr>
+                <td></td>
+                <td>
+                    <input type="hidden" id="status" value="@ViewBag.status"> 
+                    <div id="success" style="color:#4EC9B0;display:none; text-align:left;">Update Success</div>
+                    <div id="failed" style="color:#D69D85;display:none;text-align:left;">Update Failed</div> 
+                    <input type="button" class="Inputbtn" value="Update"  onclick="Update()">
+                    <input type="reset" id="reset" style="display:none">
+                    <input type="Button" id="Resetbtn" class="Inputbtn" value="Reset" onclick="Reset()">
+                </td>
+                <td style="padding-right:16px"></td>
+                </tr>
+        </table>    
+            </form>
+
+</div>
+     </div>
+        <script src="@Url.Content("~/Scripts/jquery-1.4.1.min.js")" type="text/javascript"></script>
+        <script src="@Url.Content("~/Scripts/FrameStatus.js")" type="text/javascript"></script>
+        <script src="@Url.Content("~/Scripts/fileController.js")" type="text/javascript"></script>
+        <script type="text/javascript">
+                function Update() {
+                    $("#form").submit();
+                }
+
+                function Delete(Id) {
+                    $.post("/Media/Delete/", { Id: Id }, function (data) {
+                        if (data.IsSuccess) {
+                            self.close();
+                        }
+                        else {
+                            alert("Delete failed");                                             
+                        }})}
+    </script>
+
+    </body>

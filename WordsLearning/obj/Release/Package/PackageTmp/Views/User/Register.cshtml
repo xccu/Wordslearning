@@ -1,0 +1,166 @@
+﻿@{
+    ViewBag.Title = "Register";
+    Layout = "";
+    var rootPath = Url.Content("~");
+    var LibraryList = (List<WordsLearning.Models.LibraryInfo>)ViewBag.list;
+}
+
+<body>
+    <head>    
+    <link href="@Url.Content("~/Styles/flora.datepicker.css")" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" href="@Url.Content("~/Styles/lanrenzhijia.css")" />
+    <script src="@Url.Content("~/Scripts/jquery-1.7.1.min.js")" type="text/javascript"> </script>
+    </head>
+<div style="width:200px;height:100px"></div>
+<div style="text-align:center;">
+    <div style="width:800px; text-align:center" id="Registerform">
+              <div style="background-color:#2d2d30;width:800px;height:30px">         
+                <div class="logo" style="margin-top:0px"></div>           
+                <div class="headfont">Register</div>                          
+             </div>
+             <div style="width:800px;height:1px;background-color:#CA5100"></div>
+        <form id="form" enctype="multipart/form-data" runat="server" method="post" action="~/User/CreateUser">  
+            <table>
+                    <tr>
+                    <td colspan="6">
+                        <label class="error" id="Failed" style="margin-right:400px" >Register Failed</label>
+                    </td>
+                    </tr>
+    <tr>
+        <td style="width:100px; height:40px;">Name:</td>
+        <td style="width:169px; height:40px;"><input type="text" name="Name" id="Name"></td>
+        <td style="width:140px; height:40px;"><label class="error" id="Uerror">Please input UserName</label></td>
+        <td style="width:100px; height:40px;">Password:</td>
+        <td style="width:169px; height:40px;"><input type="text" name="Password" id="Password"></td>
+        <td style="width:140px; height:40px;"><label class="error" id="Perror">Please input Password</label></td>
+    </tr>
+    <tr>
+        <td style="width:100px; height:40px;">Age:</td>
+        <td style="width:169px; height:40px;"><input type="text" name="Age" id="Age"></td>
+        <td style="width:140px; height:40px;"></td>
+        <td style="width:100px; height:40px;" >Sex:</td>
+        <td style="width:169px; height:40px;">
+            <select id="Sex" name="Sex" style="width:169px; height:20px; background-color:#333334">                  
+                <option value="male">male</option>
+                <option value="female">female</option>
+            </select>
+@*            <input type="text" name="Sex" id="Sex">*@
+
+        </td>
+        <td style="width:140px; height:40px;"></td>
+    </tr>
+    <tr>
+        <td style="width:100px; height:40px;">Country:</td>
+        <td style="width:169px; height:40px;"><input type="text" name="Country" id="Country"></td>
+        <td style="width:140px; height:40px;"></td>
+        <td style="width:100px; height:40px;">PhotoUrl:</td>
+        <td style="width:169px; height:40px;">             
+             <input type="file" id="file" value="浏览"  name="Imgurl" style="display:none" onchange="filetext.value=this.value"/>                    
+             <input type="text" id="filetext" name="filetext" style="width:149px;">
+             <input type="button" onclick="upfile()" id="filebutton" style="display:block; float:right;">                    
+        </td>
+        <td style="width:140px; height:40px;">
+            <input type="hidden" name="Status" id="Status" value="0">    
+            <input type="hidden" name="Power" id="Power" value="1">
+        </td>
+    </tr>
+@*    <tr>
+
+
+        <td style="width:140px; height:40px;"></td>
+    </tr>*@
+                <tr>
+                    <td style="width:169px; height:40px;">Library:</td>
+                    <td style="width:169px; height:40px; vertical-align:middle;">
+                        <select id="LibraryId" name="LibraryId" style="width:100px; height:20px; background-color:#333334;float:left; " onchange="Changelibrary()">                  
+                            @foreach (var item in LibraryList)
+                            {
+                                <option value="@item.LibraryId">@item.LibraryName</option>
+                            }
+                        </select>
+                    </td>
+                    <td></td>
+                    <td>
+                        <input type="button" class="Inputbtn" value="Submit"  onclick="Register()">
+                        <input type="hidden" id="Tag" name="Tag" value="1">
+                    </td>
+                </tr>
+                <tr style="height:200px"></tr>
+</table>
+            </form>
+                <div id="footer">Copyright By Charlie  
+    </div>
+    </div></div>
+<div style="width:300px; height:300px"></div>
+    <script src="@Url.Content("~/Scripts/fileController.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/fileController.js")" type="text/javascript"></script>
+    <script type="text/javascript">
+
+        $(document).ready(function () {
+            $("#Uerror").hide();
+            $("#Perror").hide();
+            $("#Failed").hide();
+        })
+
+        $("#Name").focus(function () {
+            $("#Uerror").hide();         
+        })
+
+        $("#Password").focus(function () {
+            $("#Perror").hide();          
+        })
+
+
+        function emptyValid() {
+            if (Name == "") {
+                $("#Uerror").show();
+            }
+            if (Password == "") {
+                $("#Perror").show();
+            }
+        }
+
+        function Register() {
+            @*            Id = $("#Id").val();
+            Name = $("#Name").val();
+            Password = $("#Password").val();
+            Age = $("#Age").val();
+            Sex = $("#Sex").val();
+            Country = $("#Country").val();
+            Imgurl = $("#filetext").val();
+            Power = $("#Power").val();
+            Status = $("#Status").val();
+            $.post("/User/UserRegister", { Id: Id, Name: Name, Password: Password, Age: Age, Sex: Sex, Country: Country, Imgurl: Imgurl, Power: Power, Status: Status }, function (data) {
+                if (data.IsSuccess) {
+                    window.location = '@(rootPath)User/Login'
+                }
+                else {
+                    alert("Update failed");
+                    window.location = '@(rootPath)User/Register'
+                }
+            })*@
+                //$("#Uerror").hide();
+                //$("#Failed").hide();
+            Name = $("#Name").val();
+            Password = $("#Password").val();
+            if (Name == "") {
+                $("#Uerror").show();
+            }
+            if (Password == "") {
+                $("#Perror").show();             
+            }
+            if (Name == "" || Password == "") {
+                return false;
+            }              
+                $.post("/User/ValidNewUser", {username:Name}, function (data) {
+                    if (data.IsSuccess) {
+                        $("#form").submit();
+                    }
+                    else {
+                        $("#Failed").html(data.ErrorMessage);
+                        $("#Failed").show();
+                    }
+                })        
+        }
+        </script>
+    </body>

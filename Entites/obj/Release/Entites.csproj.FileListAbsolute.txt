@@ -1,0 +1,11 @@
+E:\job\WordsLearning\Entites\bin\Release\Entites.dll
+E:\job\WordsLearning\Entites\bin\Release\Entites.pdb
+E:\job\WordsLearning\Entites\bin\Release\EntityFramework.dll
+E:\job\WordsLearning\Entites\bin\Release\Model.dll
+E:\job\WordsLearning\Entites\bin\Release\Repositories.dll
+E:\job\WordsLearning\Entites\bin\Release\Model.pdb
+E:\job\WordsLearning\Entites\bin\Release\Repositories.pdb
+E:\job\WordsLearning\Entites\bin\Release\EntityFramework.xml
+E:\job\WordsLearning\Entites\obj\Release\Entites.csprojResolveAssemblyReference.cache
+E:\job\WordsLearning\Entites\obj\Release\Entites.dll
+E:\job\WordsLearning\Entites\obj\Release\Entites.pdb

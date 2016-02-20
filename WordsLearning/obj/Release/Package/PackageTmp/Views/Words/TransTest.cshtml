@@ -1,0 +1,108 @@
+﻿@model IEnumerable<WordsLearning.Models.WordtestInfo>
+@{
+    ViewBag.Title = "Transtest";
+    var rootPath = Url.Content("~");
+    int i = 0;
+}
+
+<div style="width:10px;height:20px; display:block;float:left;"></div>
+ <div style="width:1005px;background-color:#2d2d30"> 
+<h1 id="title">Translate Test</h1> 
+     </div>
+<div style="width:1006px;">
+                <div style="width:1006px; height:1px; background-color:#007acc"></div>
+        <div style="width:1006px; height:100px;"></div>
+     <div style="width:800px; vertical-align:bottom; margin: 0 auto; font-size:14px;">Finished:@ViewBag.finished &nbsp;Rate:@ViewBag.rate%</div>
+<div id="testarea">
+    <div>
+<form>
+    <input type="hidden" id="enhanced" value="@ViewBag.enhanced">
+ <table>  
+       <thead>
+        <tr>           
+            <th>
+            </th>
+            <th>
+            </th>
+            <th class="answerth">Answer
+            </th>
+        </tr>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td style="text-align:left; width:200px; height:35px;font-size:14px; text-align:center">
+                    @item.spell
+                </td>
+                <td style="width:340px;height:35px; text-align:center;">
+                	<select style="width:300px; background-color:#333334;" name="Trans(@i)">
+                        <option value="0">---------------------- Choose Answer ----------------------</option>
+                        @foreach (var items in Model.OrderBy(t => Guid.NewGuid()))
+                        {
+                        <option value="@items.translate"; style="font-size:12px;">@items.translate</option>
+                        }
+                	</select>                      
+                </td>
+                <td class="answertd" style="text-align:center; width:260px; height:35px; font-size:12px;">
+                    <span style="display:none" class="showanswer">@item.answer</span>
+                    <input type="hidden" name="Answer(@i)" value="@item.answer">
+                    <input type="hidden" name="Ids(@i)" value="@item.WordId"> 
+                </td>
+            </tr>
+            i++;
+        }
+     <tr>
+         <td colspan="2" style="text-align:center"> <input type="button" name="enhance" style="visibility:hidden; width:57px;" value="Enhance" class="Inputbtn" onclick="enhancement()"/></td>
+         <td class="answertd" style="text-align:center; height:35px;background-color:#1e1e1e">
+             <input type="button" value="Submit" class="Inputbtn" onclick="submitanswer()"/>
+             <input type="button" value="Next" class="Inputbtn" onclick="next()"/>
+         </td>
+     </tr>
+    </table>   
+         </form>
+        </div>
+    </div>
+    </div>
+<script type="text/javascript">
+    fanswer = "";
+    fid = "";
+    function submitanswer() {
+        Ask = "";
+        Answer = "";
+        Ids = "";
+        enhanced = $("#enhanced").val();
+        for (t = 0; t < 10; t++) {
+            Ask += $("select[name=Trans(" + t + ")]").val() + "/";
+            Answer += $("input[name=Answer(" + t + ")]").val() + "/";
+            Ids += $("input[name=Ids(" + t + ")]").val() + "/";
+        }
+        $.post("/Words/CheckAnswer/", { Ask: Ask, Answer: Answer, Ids: Ids, Test: 1, Enhanced: enhanced }, function (data) {
+            fanswer = data.fanswer;
+            fid = data.fid;
+            showanswer(fanswer);
+        })
+    }
+
+    function enhancement(){
+        window.location = '@(rootPath)Words/Enhance?fid='+fid+'$1';
+    }
+
+    function next(){
+        window.location = '@(rootPath)Words/TransTest';
+    }
+
+    function showanswer(fanswer) {
+        falselist = fanswer.split('/');
+        for (i = 0; i < 10; i++) {
+            $("select[name=Trans(" + i + ")]").css({ "color": "#4EC9B0" });
+            $("select[name=Trans(" + i + ")]").attr("disabled", "disabled");
+        }
+
+        //设置字体颜色   
+        for (i = 0; i < falselist.length - 1; i++)
+            $("select[name=Trans(" + falselist[i] + ")]").css({ "color": "#D69D85" });
+        $("span[class='showanswer']").css({ "display": "block" });
+
+        if(falselist.length>1)
+            $("input[name='enhance']").css({ "visibility":"visible" });
+    }
+    </script>

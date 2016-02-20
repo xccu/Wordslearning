@@ -1,0 +1,138 @@
+﻿@{
+    ViewBag.Title = "Frame";
+    //string url = HttpContext.Current.Request.Url.AbsolutePath;
+    string url = Request.Url.ToString(); 
+    
+}
+<!DOCTYPE html>
+
+<html>
+<head runat="server">
+    <title></title>
+    <style type="text/css">
+        .auto-style1
+        {
+            width: 1012px;
+        }
+        .auto-style4
+        {
+            width: 1012px;
+            height: 120px;
+        }
+      #center{  
+         top:0%;
+         position:absolute; 
+         left:20%;         
+         margin-left:-100px; 
+         width:auto        
+             }
+      /*#back{  
+          width:1012px; 
+          height:120px;
+          background-image:url("../../Content/themes/base/images/back_3.jpg") 
+           }*/ 
+        </style>
+</head>
+
+    <link href="@Url.Content("~/Styles/flora.datepicker.css")" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" href="@Url.Content("~/Styles/lanrenzhijia.css")" />
+    <script src="@Url.Content("~/Scripts/jquery-1.4.1.min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/datepicker.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery.simplemodal.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/lanrenzhijia.js")" type="text/javascript"></script>
+    <script type="text/javascript">       
+        i = 1;
+        function hideandshow()
+        {
+            if ($("#links").show()) {
+                $("#links").hide();
+                i = 0;
+                $("#fold").attr('src', '/Content/themes/base/images/folder.png');
+            }
+            else {
+                $("#links").show();
+                i = 1;
+                $("#fold").attr('src', '/Content/themes/base/images/unfolder.png');
+            }
+        }
+        </script>
+<body>
+            <div style="height:10px;"></div>
+    <div id="page">
+        <table border="0" style="border:0 solid red; border-spacing:0px;">
+            <tr>
+              
+                <td style="vertical-align:top">
+                    <div id="left">                                          
+
+            <div style="display:inline;">  
+                 @Html.Action("LeftPartial", "User")
+                        </div>
+        <br />
+        
+    </div>                                                       
+</td>
+
+                <td style="vertical-align:top">
+                            <div style="width:1005px;height:30px;background-color:#2d2d30">
+             <div class="header" id="header">
+                 <div class="logo"></div>
+                 <div style="display:block;float:left; font-size:20px;vertical-align:text-bottom; padding-top:5px; padding-left:10px;">Words Learning</div>                       
+                    @Html.ActionLink("[Exit]", "Exit","User","",new {style="float:right"}) <span id="headercontent" style="float:right"></span>  
+                  <div class="userinfo" title="My Information" onclick="MyInfo()"></div>    
+                  <div class="help" title="Help" onclick="MyInfo()"></div>                 
+                    </div>
+                    <div class="header" id="loglink" style="display:none;width:1005px;">
+                        <div class="logo"></div>
+                        <div style="display:block;float:left; font-size:20px;vertical-align:text-bottom; padding-top:5px; padding-left:10px;">Words Learning</div>
+                         <span></span>@Html.ActionLink("[Login]", "Login", "User", new { ReturnUrl = url }, new {style="float:right"}) 
+                        <div class="help"></div>                      
+                    </div>
+                                
+        </div>                 
+                    @*</div>*@
+    <div id="serverTime"></div>
+        <div class="clock"></div>       
+                    <div style="width:1006px">
+                    @RenderBody()</div>
+                    <div style="display:none">@Html.ActionLink("MyInfo","MyInfo","User","",new {id="Myinfo"}) @Html.ActionLink("Help","MyInfo","User","",new {id="Help"})</div>
+                </td>                
+            </tr>
+            </table> 
+        <div id="footer">Copyright By Charlie  
+    </div>
+        </div>
+    <div style="height:10px;display:block; float:none;"></div>
+</body>
+    @*<script src="@Url.Content("~/Scripts/GetTime.js")" type="text/javascript"></script>*@
+    <script type="text/javascript">
+        GetTime();
+        user();
+        function GetTime() {
+            var myDate = new Date();
+            //var nowDate = myDate.toLocaleDateString();
+            var nowTime = myDate.toLocaleTimeString();
+            //var nowTime = new Date(parseInt(tm) * 1000).toLocaleString();
+            document.getElementById("serverTime").innerHTML =  nowTime;
+            setTimeout("GetTime() ", 200);
+        }
+        function user() {
+            var name = "@Html.Action("GetInfo", "User")";
+            if (name != "")
+                document.getElementById("headercontent").innerHTML = "Welcome:" + name;
+            else {
+                document.getElementById('header').style.display = "none";
+                document.getElementById('loglink').style.display = "block";
+                document.getElementById('header').style.width = "1005px";
+            }
+        }
+        function MyInfo()
+        {
+            document.getElementById("Myinfo").click();
+        }
+
+        function Help() {
+            document.getElementById("Help").click();
+        }
+        </script>
+</html>

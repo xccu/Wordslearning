@@ -1,0 +1,232 @@
+﻿@model  WordsLearning.Models.UserInfo
+
+@{
+    ViewBag.Title = "Ny Info";
+    var rootPath = Url.Content("~");
+    string pow = Model.Power == 0 ? "Admin" : "User";
+    var LibraryList = (List<WordsLearning.Models.LibraryInfo>)ViewBag.list;
+}
+
+<style>
+    .formin {
+        margin-top:30px;
+        width:700px;
+        margin: 0 auto; 
+        float:none;
+    }
+    </style>
+ <div class="subtitle">  
+     <h1>My Information</h1> 
+ </div>
+    <div> 
+        <div style="width:1006px; height:30px;"></div>
+    <div style="width:1000px; padding-left:1px;">
+
+    <div class ="formin">
+        <h4 class="title">User Detail</h4>
+    
+        <form id="form1" enctype="multipart/form-data" runat="server" method="post" action="~/User/Update">  
+            <table>
+     <tr>
+        <td rowspan="7"><img src="@Model.Imgurl" style="height:135px;"/></td>        
+    </tr>
+                <tr><td colspan="4" style="width:30px;height:20px"></td></tr>
+    <tr>
+        <td style="width:100px;">Name:</td>
+        <td style="width:169px"><input type="text" name="Name" id="Name" value="@Model.Name"></td>
+         <td style="width:100px;">Age:</td>
+        <td style="width:169px"><input type="text" name="Age" id="Age" value="@Model.Age"></td>
+    </tr>
+    <tr>
+        <td style="width:100px;" >Sex:</td>
+        <td style="width:169px">
+            <select id="Sex" name="Sex" style="width:169px; height:20px; background-color:#333334">                  
+                <option value="male">male</option>
+                <option value="female">female</option>
+            </select>
+            <input type="hidden" name="SexInfo" id="SexInfo" value="@Model.Sex">
+        </td>
+         <td style="width:100px;">Country:</td>
+        <td style="width:169px"><input type="text" name="Country" id="Country" value="@Model.Country"></td>
+    </tr>
+    <tr>
+        <td style="width:100px;">Power:</td>
+        <td style="width:169px;text-align:left">
+            @pow
+            <input type="hidden" name="Power" id="Power" value="@Model.Power">
+            <input type="hidden" name="Password" id="Password" value="@Model.Password">
+        </td>
+        <td style="width:100px;">ChangeImage:</td>
+        <td style="width:169px">                  
+             <input type="file" id="file" value="浏览"  name="Imgurl" style="display:none" onchange="filetext.value=this.value"/>                    
+             <input type="text" id="filetext" name="filetext" style="width:149px;" value="@Model.Imgurl" readonly="readonly">
+             <input type="button" onclick="upfile()" id="filebutton" style="display:block; float:right;">                    
+        </td>
+    </tr>
+    <tr>
+                    <td></td>
+                    <td></td>
+                    <td>
+                        <input type="hidden" id="Id" name="Id" value="@Model.Id">
+                        <input type="hidden" id="LibraryId" name="LibraryId" value="@ViewBag.LibraryId">
+                        <input type="hidden" id="Tag" name="Tag" value="1">
+                    </td>
+                    <td> 
+                      <input type="button" class="Inputbtn" value="Update"  onclick="submit()">
+                    </td>
+                </tr>
+                <tr><td colspan="4" style="width:30px;height:20px"></td></tr>
+</table>
+            </form>
+</div>        
+        <div style="width:700px;height:40px; margin:0 auto;">
+            <div style="float:left;margin-top:18px; font-size:14px;">Current Library:</div>
+            <select id="Library" name="Library" style="width:80px; height:20px; background-color:#333334;margin-top:15px; margin-left:10px; float:left;" onchange="Changelibrary()">                  
+               @foreach (var item in LibraryList)
+               {
+                 <option value="@item.LibraryId">@item.LibraryName</option>
+               }
+               <option value="-1">Others</option>
+            </select>
+        </div>
+            <div class="formout" style="margin: 0 auto;height:340px;width:700px; float:none;">
+        <h4 class="title " style="border-bottom:1px solid #007acc;height:23px;">Score Report</h4>  
+                <div style="width:200px;height:40px"> </div>
+            <table>
+                     <tr>
+        <td rowspan="10"><div style="width:50px; height:100px"></div></td>        
+    </tr>
+    <tr>
+        <td style="width:100px; height:25px; text-align:right;">Total Finished:</td>
+        <td style="width:169px; height:25px;">@ViewBag.TotalFinished</td>
+        <td style="width:100px; height:25px; text-align:right;">Total CorrectRate:</td>
+        <td style="width:169px; height:25px;">@ViewBag.TotalCorrectRate%</td>
+    </tr>
+    <tr>
+         <td>
+            <div style="width:100px;height:30px"></div>
+         </td>
+    </tr>
+    <tr>
+        <td style="width:150px; height:25px; font-size:14px;text-align:right;color:#559CD6">Spell Finished:</td>
+        <td style="width:169px; height:25px; font-size:14px;color:#559CD6">@Model.Scoreinfo.SpellCount</td>
+        <td style="width:200px; height:25px; font-size:14px;text-align:right;color:#4EC9B0">Spell Correct:</td>
+        <td style="width:169px; height:25px; font-size:14px;color:#4EC9B0">@ViewBag.SpellCorrect</td>
+    </tr>
+    <tr>
+        <td style="width:150px; height:25px; font-size:14px;text-align:right;color:#559CD6">CorrectRate:</td>
+        <td style="width:169px; height:25px; font-size:14px;color:#559CD6">@ViewBag.SCorrectRate%</td>
+        <td style="width:200px; height:25px; font-size:14px;text-align:right;color:#559CD6">Finished Rate:</td>
+        <td style="width:169px; height:25px; font-size:14px;color:#559CD6">@ViewBag.sfinishrate%</td>
+    </tr>
+    <tr>
+        <td>
+            <div style="width:100px;height:10px"></div>
+        </td>
+    </tr>
+    <tr>
+        <td style="width:150px; height:25px; font-size:14px;text-align:right;color:#559CD6">Translate Finished:</td>
+        <td style="width:169px; height:25px; font-size:14px;color:#559CD6">@Model.Scoreinfo.TransCount</td>
+        <td style="width:200px; height:25px; font-size:14px;text-align:right;color:#4EC9B0">Translate Correct:</td>
+        <td style="width:169px; height:25px; font-size:14px; color:#4EC9B0">@ViewBag.TranslateCorrect</td>
+    </tr>
+    <tr>
+        <td style="width:150px; height:25px; font-size:14px;text-align:right; color:#559CD6" >CorrectRate:</td>
+        <td style="width:169px; height:25px; font-size:14px;color:#559CD6">@ViewBag.TCorrectRate%</td>
+        <td style="width:200px; height:25px; font-size:14px;text-align:right;color:#559CD6">Finished Rate:</td>
+        <td style="width:169px; height:25px; font-size:14px;color:#559CD6">@ViewBag.tfinishrate%</td>
+    </tr>
+</table>
+                      <div style="width:690px;height:60px;text-align:right;display:table-cell;vertical-align:bottom;"> 
+                      <input type="button" class="Inputbtn" value="Clean"  onclick="Clean()">
+                            </div>
+</div>
+        </div>
+    <script src="@Url.Content("~/Scripts/jquery.form.js")" type="text/javascript"></script>
+    <script type="text/javascript">
+
+        $(document).ready(function () {
+            setDropdownlist("SexInfo", "Sex")
+            setDropdownlist("LibraryId", "Library")
+        });
+
+        function Clean()
+        {
+            Id = $("#Id").val();
+            if (confirm("It will clean your Score Report.Do you want to continue?")) {
+                $.post("/Words/CleanReport", { Id: Id }, function (data) {
+                    if (data.IsSuccess) {
+                        window.location = '@(rootPath)User/MyInfo'
+                    }
+                    else {
+                        alert("Update failed");
+                        window.location = '@(rootPath)User/MyInfo'
+                    }
+                })
+            }
+        }
+
+        function Changelibrary() {
+            LibraryId = $("#Library  option:selected").val();
+            UserId = $("#Id").val();
+            if (confirm("It will clean your Score Report.Do you want to continue?")) {
+                $.post("/User/UpdateLibrary", { LibraryId: LibraryId, UserId: UserId }, function (data) {
+                    if (data.IsSuccess) {
+                        window.location = '@(rootPath)User/MyInfo'
+                }
+                else {
+                    alert("Update failed");
+                    window.location = '@(rootPath)User/MyInfo'
+                    }
+                })
+            }
+        }
+
+        function Update()
+        {
+            Id = $("#Id").val();
+            Name = $("#Name").val();
+            Password = $("#Password").val();
+            Age = $("#Age").val();
+            Sex = $("#Sex").val();
+            Country = $("#Country").val();
+            Imgurl = $("#filetext").val();
+            Power = $("#Power").val();
+            Status = $("#Status").val();
+            $.post("/User/Update", {Id:Id, Name: Name, Password: Password, Age: Age, Sex: Sex, Country: Country,Imgurl: Imgurl,Power:Power,Status:Status}, function (data)
+            {
+                if (data.IsSuccess)
+                {
+                    window.location='@(rootPath)User/MyInfo'
+                }
+                else {
+                    alert("Update failed");
+                    window.location = '@(rootPath)User/MyInfo'
+                }
+            })
+            
+        }
+
+        function submit()
+        {
+            $("#form1").submit();
+        }
+
+
+        function test() {
+            //$('#form1').form('submit', {   
+            //    url: 'User/Update',
+            //    dataType : 'json',      
+            //    onSubmit: function(){   
+            //        var result = $('#form1').form("validate");//表单验证
+            //        if(!result) { 
+            //            return false;
+            //        }   
+            //    },   
+            //    success:function(data){ 
+            //        alert(data.isSuccess); 
+            //    }   
+            //})
+        }
+    </script>
+</div>

@@ -1,0 +1,98 @@
+﻿@model WordsLearning.Models.WordInfo
+
+@{
+    var rootPath = Url.Content("~");
+    Layout = "";
+    ViewBag.Title = "Manage";
+}
+    <link href="@Url.Content("~/Styles/flora.datepicker.css")" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" href="@Url.Content("~/Styles/lanrenzhijia.css")" />
+<body style="background-color:#1e1e1e">
+<div style="width:800px;padding-left:1px;">
+    <div style="width:800px">
+<form id="form" enctype="multipart/form-data" runat="server" method="post" action="~/Words/Edit">
+<table>
+            <tr>
+                <td style="height: 22px; width: 60px">spell:</td>
+                <td>
+                    <input type="text" name="spell" id="spell" value="@Model.spell"></td>
+                <td rowspan="4" style="width:600px; text-align:center;vertical-align:top;">
+                    <div>Sentence</div>
+                    <textarea style="width:500px; height:70px;margin:0 auto; margin-bottom:3px" id="sentence" name="sentence">@Model.sentence</textarea>
+                    <div style="text-align:left;padding-left:15px" class="checklist">
+                        @foreach (var item in Model.LibraryList) 
+                        {
+                            <div style="float:left;padding-left:15px;">
+                                <div style="float:left">@item.LibraryName</div>
+                                <div class="unchecked" id="Check_@item.LibraryId" onclick="changeChecked(this)"></div>
+                            </div>
+                        }
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td style="height: 22px; width: 60px">speak:</td>
+                <td>
+                    <input type="text" name="speak" id="speak" value="@Model.speak"></td>
+            </tr>
+            <tr>
+                <td style="height: 22px; width: 60px">type:</td>
+                <td>
+                    <input type="text" name="type" id="type" value="@Model.type"></td>
+            </tr>
+            <tr>
+                <td style="height: 22px; width: 60px">translate:</td>
+                <td>
+                    <input type="hidden" name="LibraryStr" id="LibraryStr" />
+                    <input type="hidden" name="Id" id="Id" value="@Model.Id">
+                    <input type="text" name="translate" id="translate" value="@Model.translate"></td>
+            </tr>
+            <tr>
+                <td></td>
+                <td></td>
+                <td style="padding-right:30px">
+              <div id="success" style="color:#4EC9B0; text-align:left; display:none; float:left; padding-left:230px;">Update Success</div>
+             <div id="failed" style="color:#D69D85;display:none;text-align:left;float:left; padding-left:230px;">Update Failed</div>  
+             <input type="hidden" id="status" value="@ViewBag.status" /> 
+                    <input type="button" value="update" class="Inputbtn" onclick="Update()" />
+                </td>
+                </tr>
+        </table> 
+</form>
+        </div>
+         </div>
+    <script src="@Url.Content("~/Scripts/jquery-1.4.1.min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/FrameStatus.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/newCheckBox.js")" type="text/javascript"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            getCheckValue("@Model.LibraryStr")
+        });
+        
+        function Update() {
+            Str= setCheckValue()
+            $("#LibraryStr").attr("value",Str);
+            $("#form").submit();
+        }
+
+        //function Update() {
+        //    LibraryStr = setCheckValue();
+        //    Id = $("#Id").val();
+        //    sentence = $("#sentence").val();
+        //    spell = $("#spell").val();
+        //    speak = $("#speak").val();
+        //    type = $("#type").val();
+        //    translate = $("#translate").val();
+        //    $.post("/Words/Update", { Id: Id, spell: spell, speak: speak, type: type, translate: translate, sentence: sentence, LibraryStr: LibraryStr }
+        //        , function (data) {
+        //            if (data.IsSuccess) {
+        //                $("#status").val('t');
+        //            }
+        //            else {
+        //                $("#status").val('f');
+        //            }
+        //            frameStatus();
+        //        }
+        //    )}
+        </script>
+    </body>
